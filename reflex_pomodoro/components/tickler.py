@@ -1,4 +1,5 @@
 """Tickler is a custom reflex component that tracks "ticks" on the frontend only."""
+
 from typing import Any, Dict
 import uuid
 

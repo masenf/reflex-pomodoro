@@ -1,4 +1,5 @@
 """This module wraps the npm package `react-circular-progressbar`."""
+
 import inspect
 from typing import Literal
 

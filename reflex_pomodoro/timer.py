@@ -1,4 +1,5 @@
 """The high level Timer component of the app."""
+
 import reflex as rx
 
 from .components.react_circular_progress import circular_progressbar_with_children

@@ -1,4 +1,5 @@
 """Settings for the Pomodoro timer."""
+
 import json
 
 import reflex as rx
