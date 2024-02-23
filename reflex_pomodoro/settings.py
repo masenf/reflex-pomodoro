@@ -32,20 +32,14 @@ class SettingsState(rx.State):
 
         # Populate form fields
         if self.dialog_is_open:
-            return [
-                rx.set_value(field, getattr(self, field))
-                for field in _fields
-            ]
+            return [rx.set_value(field, getattr(self, field)) for field in _fields]
 
     def save_settings(self, form_data):
         for key, value in form_data.items():
             setattr(self, key, int(value))
 
         self.settings_json = json.dumps(
-            {
-                field: getattr(self, field)
-                for field in _fields
-            }
+            {field: getattr(self, field) for field in _fields}
         )
 
         self.dialog_is_open = False
