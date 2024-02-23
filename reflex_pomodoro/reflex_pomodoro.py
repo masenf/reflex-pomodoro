@@ -26,7 +26,8 @@ class State(SettingsState):
                 self.long_break_time_m * 60
                 if self.n_breaks % self.long_break_interval == 0
                 else self.break_time_m * 60
-            )
+            ),
+            not skip,  # Start the timer if not skipping.
         )
 
 
