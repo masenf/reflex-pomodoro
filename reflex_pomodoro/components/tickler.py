@@ -27,17 +27,11 @@ class Tickler(Moment):
             "on_reset": lambda: [],
         }
 
-    def _exclude_props(self) -> list[str]:
-        # These props are used internally and should not be passed to Moment
-        return [
-            "value",
-            "set_value",
-            "value_name",
-            "tick_limit",
-            "tick_should_reset",
-            "on_tick_limit",
-            "on_reset",
-        ]
+    def _exclude_props(self) -> set[str]:
+        # All props and triggers are used internally and should not be passed to Moment
+        return (
+            self.get_props().union({"on_tick_limit", "on_reset"}) - Moment.get_props()
+        )
 
     @classmethod
     def create(cls, *children, **props) -> rx.Component:
