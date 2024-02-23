@@ -2,6 +2,7 @@
 
 import reflex as rx
 
+from . import sfx
 from .components.react_circular_progress import circular_progressbar_with_children
 from .components.tickler import tickler
 from .components.use_state import integral_fragment
@@ -12,11 +13,13 @@ class TimerState(rx.State):
     time_elapsed_s: float = 0.0
     tick_interval_ms: int = 0
     reset_timer: bool = False
+    is_work: bool = True
 
-    def reset_to(self, time_s: int, start: bool = False):
+    def reset_to(self, time_s: int, start: bool, is_work: bool):
         self.total_time_s = time_s
         self.time_elapsed_s = 0.0
         self.tick_interval_ms = 1000 if start else 0
+        self.is_work = is_work
         self.reset_timer = True
 
     def toggle_running(self):
@@ -28,6 +31,10 @@ class TimerState(rx.State):
     def on_tick_limit(self, n_ticks):
         self.tick_interval_ms = 0
         self.time_elapsed_s = n_ticks
+        if self.is_work:
+            return sfx.work_done_sfx()
+        else:
+            return sfx.break_done_sfx()
 
     @rx.cached_var
     def is_running(self) -> bool:
@@ -54,7 +61,7 @@ def timer(**box_props) -> rx.Component:
             rx.vstack(
                 rx.heading(
                     rx.moment(
-                        date=(TimerState.total_time_s - ticks.value + 1).to(str),
+                        date=(TimerState.total_time_s - ticks.value + 0.1).to(str),
                         unix=True,
                         format="mm:ss",
                     ),

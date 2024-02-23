@@ -1,6 +1,7 @@
 import reflex as rx
 
 from .settings import SettingsState, settings_dialog
+from .sfx import sound_fx
 from .timer import TimerState, timer
 from .todo_list import TodoState, todo_list_component
 
@@ -31,12 +32,14 @@ class State(SettingsState):
                 )
             ),
             not skip,  # Start the timer if not skipping.
+            self.is_work,
         )
 
 
 def index() -> rx.Component:
     return rx.vstack(
         # rx.theme_panel(),
+        sound_fx(),
         timer(height="200px", width="200px"),
         rx.hstack(
             rx.cond(
