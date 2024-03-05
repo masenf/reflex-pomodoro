@@ -17,24 +17,6 @@ RUN apt-get update -y && apt-get install -y caddy && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Create a simple Caddyfile to serve as reverse proxy
-RUN cat > Caddyfile <<EOF
-:{\$PORT}
-
-encode gzip
-
-@backend_routes path /_event/* /ping /_upload /_upload/*
-handle @backend_routes {
-	reverse_proxy localhost:8000
-}
-
-root * /srv
-route {
-	try_files {path} {path}/ /404.html
-	file_server
-}
-EOF
-
 # Copy local context to `/app` inside container (see .dockerignore)
 COPY . .
 
