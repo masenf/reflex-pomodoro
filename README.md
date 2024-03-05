@@ -9,3 +9,7 @@ This implementation will demonstrate
 * Using local storage to persist state
 * Using the built in `moment` component to track and display time
 * Displaying a settings dialog
+
+## Deployment
+
+Currently testing a deployment to Google Cloud Run via Dockerfile
